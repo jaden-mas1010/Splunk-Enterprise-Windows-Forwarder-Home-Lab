@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "title": "Windows Overview Dashboard",
+    "description": "Basic visibility into Windows and Sysmon logs",
+    "definition": {
+      "visualizations": [
+        {
+          "type": "statistics",
+          "title": "Event Count by Sourcetype",
+          "search": {
+            "query": "index=win_logs OR index=sysmon | stats count by sourcetype"
+          }
+        },
+        {
+          "type": "statistics",
+          "title": "Top Hosts",
+          "search": {
+            "query": "index=win_logs OR index=sysmon | stats count by host"
+          }
+        }
+      ]
+    }
+  }
+}
