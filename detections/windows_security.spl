@@ -1,0 +1,16 @@
+###############################################
+# Splunk Detection – Windows Security Events
+###############################################
+
+# Failed Logons
+index=win_logs sourcetype=WinEventLog:Security EventCode=4625
+| stats count by Account_Name, host, Logon_Type
+
+# Suspicious PowerShell Execution
+index=win_logs OR index=sysmon
+(Image="*powershell.exe" OR CommandLine="*powershell*")
+| table _time, host, User, CommandLine
+
+# Sysmon Process Creation
+index=sysmon EventCode=1
+| table _time, host, Image, CommandLine, ParentImage
